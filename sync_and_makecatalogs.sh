@@ -8,6 +8,9 @@ aws s3 sync "$CODEBUILD_SRC_DIR_MunkiGitRepoSourceArtifact/pkgsinfo" "s3://${Mun
 # Sync manifests
 aws s3 sync "$CODEBUILD_SRC_DIR_MunkiGitRepoSourceArtifact/manifests" "s3://${MunkiRepoBucketName}/manifests" --delete --region $AWSRegion
 
+# Sync icons
+test -d "$CODEBUILD_SRC_DIR_MunkiGitRepoSourceArtifact/icons" && aws s3 sync "$CODEBUILD_SRC_DIR_MunkiGitRepoSourceArtifact/icons" "s3://${MunkiRepoBucketName}/icons" --delete --region $AWSRegion
+
 # Make catalogs
 python munki/makecatalogs  -s --repo_url s3Repo --plugin s3Repo
 
